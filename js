@@ -7,6 +7,8 @@ const guessesSpan=document.querySelector(".remaining span");
 const message=document.querySelector(".messages");
 const playAgainButton=document.querySelector(".play-again")
 const updateText=[];
+const repoList=document.querySelector(".repo-list")
+
 for(const text of word ){
 console.log(text)
 placeholderLetters.push("●")
@@ -41,3 +43,15 @@ const userData =function(gitUser){
       <p><strong>Location:</strong> ${gitUser.location}</p>
       <p><strong>Number of public repos:</strong> ${gitUser.number-of-public-repos}</p>
     </div> `}
+
+    const fetchedRepos=async function(){
+      const repoList = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+  const repoInput = await repoList.json();
+  displayRepos(repoInput);
+}
+const displayRepos=function(repos){
+  displayRepos.classList.add("repos")
+  displayRepos.innerHTML=`<h3>${repos.name}</h3>`
+  repoList.append(repoItem)
+
+}
