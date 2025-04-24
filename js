@@ -1,29 +1,10 @@
-const guessedLetters=document.querySelector(".guessed-letters")
-const button=document.querySelector(".guess");
-const paragraph=document.querySelector("#p");
-const textInput=document.querySelector(".letter");
-const wordInProgress=document.querySelector(".word-in-progress");
-const guessesSpan=document.querySelector(".remaining span");
-const message=document.querySelector(".messages");
-const playAgainButton=document.querySelector(".play-again")
-const updateText=[];
-const repoList=document.querySelector(".repo-list")
-
-for(const text of word ){
-console.log(text)
-placeholderLetters.push("●")
-placeholderLetters.push("●")
-
-}
-wordInProgress.innerText=placeholderLetters.join("")
-
-guessLetterButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    const guess = letterInput.value;
-    console.log(guess);
-    letterInput.value = "";
-});
+const repoList=document.querySelector(".repo-list");
+const galleryButton=document.querySelector("view.repos");
+const filterInput=document.querySelector(".filtered-repos")
 const divInformation=document.querySelector(".overveiw");
+const repoInfo=document.querySelector(".repos");
+const repoData=document.querySelector(".repo-data");
+
 // this is where profile information will appear
 const username="reigninxtdoor";
 const profile=async function(){
@@ -43,7 +24,7 @@ const userData =function(gitUser){
       <p><strong>Location:</strong> ${gitUser.location}</p>
       <p><strong>Number of public repos:</strong> ${gitUser.number-of-public-repos}</p>
     </div> `}
-
+    overview.append(div);
     const fetchedRepos=async function(){
       const repoList = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
   const repoInput = await repoList.json();
@@ -54,4 +35,40 @@ const displayRepos=function(repos){
   displayRepos.innerHTML=`<h3>${repos.name}</h3>`
   repoList.append(repoItem)
 
+};
+galleryButton.addEventListener("click",function(){
+  displayRepos.classlist.remove("hide");
+  galleryButton.classList.add("hide");
+
+});
+repoList.addEventListener("click",function(e){
+ const repoName = e.target.innerText;
+  if (e.target.matches("h3"));
+  RepoInfo(repoName);
+  });
+  const fetchedName =async function(repoName){
+    const grabInfo= await fetch (`https://api.github.com/repos/${username}/${repoName}`);
+    const repoInfo=await res.json();
+console.log(repoInfo);
+const languageData=await fetchLanguages.json();
+  }
+const languages=[];
+for(const language in languageData ){
+  languages.push(language);
 }
+const fetchLanguages= await fetch(repoInfo.languages_url)
+console.log(languageData);
+const displayRepoInfo =function(repoInfo,languages){
+  const divTwo=document.createElement("div2");
+  divTwo.classList.add("repo-data")
+  divTwo.innerHTML=`<h3>Name: ${}</h3>
+    <p>Description: ${}</p>
+    <p>Default Branch: ${}</p>
+    <p>Languages: ${languages.join(", ")}</p>
+    <a class="visit" href="${}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`
+    repoData.append(divTwo);
+
+console.log(languages);
+
+  };
+
