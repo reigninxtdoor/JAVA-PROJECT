@@ -4,6 +4,8 @@ const filterInput=document.querySelector(".filtered-repos")
 const divInformation=document.querySelector(".overveiw");
 const repoInfo=document.querySelector(".repos");
 const repoData=document.querySelector(".repo-data");
+const backToGallery=document.querySelector("back-to-gallery-button")
+
 
 // this is where profile information will appear
 const username="reigninxtdoor";
@@ -25,7 +27,8 @@ const userData =function(gitUser){
       <p><strong>Number of public repos:</strong> ${gitUser.number-of-public-repos}</p>
     </div> `}
     overview.append(div);
-    const fetchedRepos=async function(){
+
+    const fetchedRepos=async function(username){
       const repoList = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
   const repoInput = await repoList.json();
   displayRepos(repoInput);
@@ -71,4 +74,17 @@ const displayRepoInfo =function(repoInfo,languages){
 console.log(languages);
 
   };
+backToGallery.addEventListener("click",function(){
+ repoInfo.classList.remove("hide");
+  repoData.classList.add("hide");
+  backToGallery.classList.add("hide");
 
+})
+filterInput.addEventListener("input",function(e){
+  const repoLowerText = repo.innerText.toLowerCase();
+  if (repoLowerText.includes(searchLowerText)) {
+    repo.classList.remove("hide");
+  } else {
+    repo.classList.add("hide");
+  }
+});
